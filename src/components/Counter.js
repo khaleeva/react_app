@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import MyButton from "./MyButton/MyButton";
 
 
 const Counter = () => {
@@ -15,8 +16,8 @@ const Counter = () => {
     return (
         <div className="counter">
             <h1>Current count: {count}</h1>
-            <button className="btn" onClick = {increment}>+</button>
-            <button className="btn" onClick = {decrement}>-</button>
+            <MyButton className="btn" action = {increment}>+</MyButton>
+            <MyButton className="btn" action = {decrement}>-</MyButton>
         </div>
     );
 

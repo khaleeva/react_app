@@ -1,0 +1,20 @@
+.button-green{
+    background-color: #44CCAA;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 1rem;
+}
+
+
+.button-red{
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 1rem;
+}

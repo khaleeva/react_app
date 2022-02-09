@@ -1,6 +1,9 @@
  import React from 'react';
+ import button from "./MyButton.css"
 
-const MyButton = ({children, changeText}) => {
+const MyButton = ({children, action}) => {
+
+
 
     // const [state, setState] = useState('Text');
 
@@ -9,7 +12,7 @@ const MyButton = ({children, changeText}) => {
         //     {state}
         // </button>
 
-        <button onClick={() => changeText('Thank you!')}>{children}</button>
+        <button className={"button"}  onClick={() => action()}>{children}</button>
     );
 };
 
