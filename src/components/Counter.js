@@ -6,7 +6,6 @@ const Counter = () => {
 
     const increment = () =>{
         setCount(count + 1);
-
     }
 
     const decrement = () =>{
@@ -14,10 +13,10 @@ const Counter = () => {
     }
 
     return (
-        <div>
+        <div className="counter">
             <h1>Current count: {count}</h1>
-            <button onClick = {increment}>+</button>
-            <button onClick = {decrement}>-</button>
+            <button className="btn" onClick = {increment}>+</button>
+            <button className="btn" onClick = {decrement}>-</button>
         </div>
     );
 
