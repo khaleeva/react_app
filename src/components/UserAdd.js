@@ -1,10 +1,17 @@
 import React, {useState} from 'react';
 
-const UserAdd = () => {
+const UserAdd = ({users}) => {
     const [user, setUser] = useState({});
+
+
     const onChange = (e) =>{
         const field = e.target.id;
         setUser({...user, [field]:e.target.value})
+    }
+
+    const addNewUser = () => {
+        users.push(user);
+        console.log(users)
     }
 
     console.log(user);
@@ -13,6 +20,10 @@ const UserAdd = () => {
         age: 'number',
         country: 'text'
     }
+
+
+
+
     return (
         <>
             {Object.keys(values).map((value, index) =>
@@ -24,7 +35,7 @@ const UserAdd = () => {
                     onChange={onChange}
                 />
             )}
-            <button>Add new user</button>
+            <button onClick={addNewUser}>Add new user</button>
         </>
     );
 };

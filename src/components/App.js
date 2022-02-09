@@ -21,7 +21,7 @@ const App = () =>{
         {/*<MyClassButton/>*/}
 
         <UserList users={users}/>
-        <UserAdd/>
+        <UserAdd users = {users}/>
     </div>
   );
 }
