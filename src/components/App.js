@@ -1,6 +1,9 @@
-import UserList from "./UserList";
-import {users} from "../users";
-import UserAdd from "./UserAdd";
+
+import 'bootstrap/dist/css/bootstrap.min.css'
+import NavBar from "./NavBar";
+import AppRouter from "./AppRouter";
+import {BrowserRouter} from "react-router-dom";
+
 
 const App = () =>{
     // const [buttonText, setButtonText] = useState('Click me please!')
@@ -20,8 +23,10 @@ const App = () =>{
         {/*<Counter/>*/}
         {/*<MyClassButton/>*/}
 
-        <UserList users={users}/>
-        <UserAdd users = {users}/>
+        <BrowserRouter>
+            <NavBar/>
+            <AppRouter/>
+        </BrowserRouter>
     </div>
   );
 }
