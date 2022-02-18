@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useMemo, useState} from 'react';
+import popover from "bootstrap/js/src/popover";
 
 const Posts = () => {
 
-    const usersPosts = [
+    const [sorter, setSorter] = useState(0);
+    const [filteredPosts, setFilteredPosts] = useState([])
+    const [usersPosts, setUsersPosts] = useState( [
         {
             "userId": 1,
             "id": 1,
@@ -38,22 +41,72 @@ const Posts = () => {
             "id": 6,
             "title": "dolorem eum magni eos aperiam quia",
             "body": "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
-        }]
+        }])
+
+    const deletePost = (id) => {
+        const confirm = window.confirm("Do you really want to delete it?")
+        if(confirm) {
+            setUsersPosts(usersPosts.filter((post) => post.id !== id))
+        }
+    }
+
+    useMemo(() => {
+        setFilteredPosts(usersPosts);
+    }, [usersPosts])
+
+    const onSearch = (e) => {
+        if(e.target.value){
+            return setFilteredPosts(usersPosts.filter((post) => post.title.toLowerCase().includes(e.target.value.toLowerCase())))
+        }
+        setFilteredPosts(usersPosts);
+    }
+
+    const onSort = (e) => {
+
+        setSorter(+e.target.value)
+    }
+
+    const doSort = (userPosts) => {
+        if(sorter) {
+            return userPosts.sort((a,b) => b.id - a.id)
+        }
+
+        return userPosts.sort((a,b) => a.id - b.id)
+    }
 
     return (
-        <div className="row">
-            {usersPosts.map((post, id) =>
-                <div className="col-sm-6 mt-3" key={id}>
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">{post.title}</h5>
-                            <p className="card-text">{post.body}</p>
-                            <button className="btn btn-primary">Go somewhere</button>
+        <div className="container">
+            <div className="input-group mt-3">
+                <span className="input-group-text" id="basic-addon1">Search</span>
+                <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Search post"
+                    aria-label="Username"
+                    aria-describedby="basic-addon1"
+                    onChange={onSearch}
+                />
+            </div>
+            <select className="form-select mt-3"
+                    aria-label="Default select example"
+                    onChange={onSort}
+            >
+                <option  defaultValue value="0">from Min to Max</option>
+                <option value="1">from Max to Min</option>
+            </select>
+            <div className="row">
+                {doSort(filteredPosts).map((post, id) =>
+                    <div className="col-sm-6 mt-3" key={post.id}>
+                        <div className="card">
+                            <div className="card-body">
+                                <h5 className="card-title">{post.id}. {post.title}</h5>
+                                <p className="card-text">{post.body}</p>
+                                <button onClick={() => deletePost(post.id)} className="btn btn-primary">Delete</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
-
+                )}
+            </div>
         </div>
     );
 };
