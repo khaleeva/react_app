@@ -24,7 +24,7 @@ const UserList = ({users, deleteUser}) => {
                 <td>{user.name}</td>
                 <td>{user.age}</td>
                 <td>{user.country}</td>
-                <td><button onClick={() => deleteUser(user.id)}>delete</button></td>
+                <td><MyButton action={() => deleteUser(user.id)}>delete</MyButton></td>
             </tr>
                 )}
             </tbody>
