@@ -1,11 +1,9 @@
 import React, {useMemo, useState} from 'react';
-import popover from "bootstrap/js/src/popover";
 
 const Posts = () => {
-
     const [sorter, setSorter] = useState(0);
-    const [filteredPosts, setFilteredPosts] = useState([])
-    const [usersPosts, setUsersPosts] = useState( [
+    const [searchQuery, setSearchQuery] = useState('');
+    const [usersPosts, setUsersPosts] = useState([
         {
             "userId": 1,
             "id": 1,
@@ -45,34 +43,29 @@ const Posts = () => {
 
     const deletePost = (id) => {
         const confirm = window.confirm("Do you really want to delete it?")
-        if(confirm) {
+        if (confirm) {
             setUsersPosts(usersPosts.filter((post) => post.id !== id))
         }
     }
 
-    useMemo(() => {
-        setFilteredPosts(usersPosts);
-    }, [usersPosts])
-
     const onSearch = (e) => {
-        if(e.target.value){
-            return setFilteredPosts(usersPosts.filter((post) => post.title.toLowerCase().includes(e.target.value.toLowerCase())))
-        }
-        setFilteredPosts(usersPosts);
+        setSearchQuery(e.target.value)
     }
 
     const onSort = (e) => {
-
         setSorter(+e.target.value)
     }
 
-    const doSort = (userPosts) => {
-        if(sorter) {
-            return userPosts.sort((a,b) => b.id - a.id)
+    const sortedPosts = useMemo(() => {
+        if (sorter) {
+            return [...usersPosts].sort((a, b) => b.id - a.id)
         }
+        return usersPosts
+    }, [sorter, usersPosts])
 
-        return userPosts.sort((a,b) => a.id - b.id)
-    }
+    const sortedAndSearchedPosts = useMemo(() => {
+        return sortedPosts.filter((post) => post.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    }, [searchQuery, sortedPosts])
 
     return (
         <div className="container">
@@ -91,11 +84,11 @@ const Posts = () => {
                     aria-label="Default select example"
                     onChange={onSort}
             >
-                <option  defaultValue value="0">from Min to Max</option>
+                <option defaultValue value="0">from Min to Max</option>
                 <option value="1">from Max to Min</option>
             </select>
             <div className="row">
-                {doSort(filteredPosts).map((post, id) =>
+                {sortedAndSearchedPosts.map((post) =>
                     <div className="col-sm-6 mt-3" key={post.id}>
                         <div className="card">
                             <div className="card-body">

@@ -1,7 +1,10 @@
 import React from 'react';
+import MyButton from "../../components/MyButton/MyButton";
 
 
-const UserList = ({users}) => {
+const UserList = ({users, deleteUser}) => {
+
+
 
     return (
         <table className="table table-info">
@@ -11,6 +14,7 @@ const UserList = ({users}) => {
                 <th scope="col">Name</th>
                 <th scope="col">Age</th>
                 <th scope="col">Country</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -20,6 +24,7 @@ const UserList = ({users}) => {
                 <td>{user.name}</td>
                 <td>{user.age}</td>
                 <td>{user.country}</td>
+                <td><button onClick={() => deleteUser(user.id)}>delete</button></td>
             </tr>
                 )}
             </tbody>
