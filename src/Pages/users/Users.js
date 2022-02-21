@@ -1,11 +1,16 @@
 import React, {useState} from 'react';
 import UserList from "./UserList";
 import UserAdd from "./UserAdd";
+import MyModal from "../../components/MyModal/MyModal";
 
+
+// function Mybutton(props) {
+//     return null;
+// }
 
 const Users = () => {
 
-
+    const[showModal, setShowModal] = useState(false);
     const [users, setUsers] = useState([
         {
             id:1,
@@ -37,7 +42,13 @@ const Users = () => {
     return (
         <div className='container'>
             <UserList users={users} deleteUser={deleteUser}/>
-            <UserAdd users = {users} setUsers = {setUsers}/>
+            <button
+                className="btn btn-secondary"
+                onClick={() => setShowModal(true)}
+            >Add User
+            </button>
+            {/*<UserAdd users = {users} setUsers = {setUsers}/>*/}
+            <MyModal visible={showModal}/>
         </div>
     );
 };

@@ -88,7 +88,9 @@ const Posts = () => {
                 <option value="1">from Max to Min</option>
             </select>
             <div className="row">
-                {sortedAndSearchedPosts.map((post) =>
+                {sortedAndSearchedPosts.length
+                    ?
+                    sortedAndSearchedPosts.map((post) =>
                     <div className="col-sm-6 mt-3" key={post.id}>
                         <div className="card">
                             <div className="card-body">
@@ -98,7 +100,9 @@ const Posts = () => {
                             </div>
                         </div>
                     </div>
-                )}
+                )
+                    :
+                    <h3 className="mt-4">Post not found</h3>}
             </div>
         </div>
     );

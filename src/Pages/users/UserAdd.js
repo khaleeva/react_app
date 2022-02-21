@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import MyButton from "../../components/MyButton/MyButton";
 
 const UserAdd = ({users, setUsers}) => {
-    // const [user, setUser] = useState({});
-
 
     const onChange = (e) =>{
         e.preventDefault();

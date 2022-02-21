@@ -4,8 +4,6 @@ import MyButton from "../../components/MyButton/MyButton";
 
 const UserList = ({users, deleteUser}) => {
 
-
-
     return (
         <table className="table table-info">
             <thead>
@@ -30,19 +28,6 @@ const UserList = ({users, deleteUser}) => {
             </tbody>
         </table>
     )
-
 };
 
 export default UserList;
-
-
-
-
-
-// return users.map((user, index) =>
-//     <div className={'userList'} key={index}>
-//         <div className={'name'}><span>Name:</span> {user.name}</div>
-//         <div className={'age'}><span>Age:</span> {user.age}</div>
-//         <div className={'country'}><span>Country:</span> {user.country}</div>
-//     </div>
-// )
