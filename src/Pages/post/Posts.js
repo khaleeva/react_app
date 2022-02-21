@@ -1,6 +1,9 @@
 import React, {useMemo, useState} from 'react';
+import MyModal from "../../components/MyModal/MyModal";
 
 const Posts = () => {
+    const[showModal, setShowModal] = useState(false);
+    const [currentPost, setCurrentPost] = useState(null);
     const [sorter, setSorter] = useState(0);
     const [searchQuery, setSearchQuery] = useState('');
     const [usersPosts, setUsersPosts] = useState([
@@ -41,11 +44,15 @@ const Posts = () => {
             "body": "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
         }])
 
-    const deletePost = (id) => {
-        const confirm = window.confirm("Do you really want to delete it?")
-        if (confirm) {
-            setUsersPosts(usersPosts.filter((post) => post.id !== id))
-        }
+
+    const confirmDeletePost = (post) =>{
+        setCurrentPost(post);
+        setShowModal(true)
+    }
+
+    const deletePost = () => {
+        setUsersPosts(usersPosts.filter((post) => post.id !== currentPost.id))
+        setShowModal(false)
     }
 
     const onSearch = (e) => {
@@ -96,7 +103,7 @@ const Posts = () => {
                             <div className="card-body">
                                 <h5 className="card-title">{post.id}. {post.title}</h5>
                                 <p className="card-text">{post.body}</p>
-                                <button onClick={() => deletePost(post.id)} className="btn btn-primary">Delete</button>
+                                <button onClick={() => confirmDeletePost(post)} className="btn btn-primary">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -104,6 +111,14 @@ const Posts = () => {
                     :
                     <h3 className="mt-4">Post not found</h3>}
             </div>
+            <MyModal
+                visible={showModal}
+                title={"Do you really want to delete it?"}
+                closeButtonShow
+                saveButtonShow
+                onCancel = {() => setShowModal(false)}
+                onConfirm={()=> deletePost()}
+            />
         </div>
     );
 };

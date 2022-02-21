@@ -33,6 +33,10 @@ const Users = () => {
 
     ]);
 
+    const onCancel = () =>{
+       setShowModal(false)
+    }
+
     const deleteUser = (id) => {
         const confirm = window.confirm("Do you really want to delete it?")
         if (confirm) {
@@ -48,7 +52,11 @@ const Users = () => {
             >Add User
             </button>
             {/*<UserAdd users = {users} setUsers = {setUsers}/>*/}
-            <MyModal visible={showModal}/>
+            <MyModal visible={showModal} onCancel={()=>{onCancel()}}
+            closeButtonShow>
+                <UserAdd users = {users} setUsers = {setUsers} onCancel={()=>onCancel()}/>
+            </MyModal>
+
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import MyButton from "../../components/MyButton/MyButton";
 
-const UserAdd = ({users, setUsers}) => {
+const UserAdd = ({users, setUsers, onCancel}) => {
 
     const onChange = (e) =>{
         e.preventDefault();
@@ -16,6 +16,9 @@ const UserAdd = ({users, setUsers}) => {
             age: '',
             country: ''
         })
+
+        onCancel();
+
     }
 
     const [values, setValues] = useState({
@@ -48,9 +51,7 @@ const UserAdd = ({users, setUsers}) => {
                 />
             })
             }
-
-
-            <MyButton className={"adduserBtn"} action={addNewUser}>Add new user</MyButton>
+            <MyButton className={"adduserBtn"} action={addNewUser} >Add new user</MyButton>
         </>
     );
 };

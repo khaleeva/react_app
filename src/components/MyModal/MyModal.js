@@ -5,6 +5,7 @@ const MyModal = ({
                      visible=false,
                      title,
                      closeButtonShow = false,
+                     saveButtonShow=false,
                      children,
                      onCancel,
                      onConfirm,
@@ -27,22 +28,22 @@ const MyModal = ({
                         <p>{children}</p>
                     </div>
                     <div className="modal-footer">
-                        { closeButtonShow &&
+                        {closeButtonShow &&
                         <button
                             type="button"
                             className="btn btn-secondary"
                             data-bs-dismiss="modal"
                             onClick={onCancel}
                         >
-                            Close
+                            Cancel
                         </button>}
-                        <button
+                        {saveButtonShow && <button
                             type="button"
                             className="btn btn-primary"
                             onClick={onConfirm}
                         >
-                            Save changes
-                        </button>
+                            Ok
+                        </button>}
                     </div>
                 </div>
             </div>
