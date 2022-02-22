@@ -43,7 +43,7 @@ const Users = () => {
             return [...users].sort((a, b) => b.age - a.age)
         } else if(sorter === 1){
             return [...users].sort((a, b) => a.age - b.age)
-        } return users
+        } return [...users]
 
     }, [sorter, users])
 

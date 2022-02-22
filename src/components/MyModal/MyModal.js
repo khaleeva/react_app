@@ -26,7 +26,7 @@ const MyModal = ({
                         />
                     </div>
                     <div className="modal-body">
-                        <p>{children}</p>
+                        {children}
                     </div>
                     <div className="modal-footer">
                         {closeButtonShow &&

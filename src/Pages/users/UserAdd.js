@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import MyButton from "../../components/MyButton/MyButton";
 
+
 const UserAdd = ({users, setUsers, onCancel}) => {
 
     const onChange = (e) =>{
@@ -18,7 +19,6 @@ const UserAdd = ({users, setUsers, onCancel}) => {
         })
 
         onCancel();
-
     }
 
     const [values, setValues] = useState({
@@ -28,7 +28,7 @@ const UserAdd = ({users, setUsers, onCancel}) => {
     })
 
     return (
-        <form className={'user-form'}>
+        <div className='user-form'>
             {Object.keys(values).map((value, index) => {
                 if (value === 'age') {
                     return <input
@@ -51,8 +51,9 @@ const UserAdd = ({users, setUsers, onCancel}) => {
                 />
             })
             }
+
             <MyButton className={"adduserBtn"} action={addNewUser} >Add new user</MyButton>
-        </form>
+        </div>
     );
 };
 
