@@ -113,12 +113,14 @@ const Posts = () => {
             </div>
             <MyModal
                 visible={showModal}
-                title={"Do you really want to delete it?"}
+                title={"Delete User"}
                 closeButtonShow
                 saveButtonShow
                 onCancel = {() => setShowModal(false)}
                 onConfirm={()=> deletePost()}
-            />
+            >
+                {"Do you really want to delete it?"}
+            </MyModal>
         </div>
     );
 };

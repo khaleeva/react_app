@@ -9,10 +9,11 @@ const MyModal = ({
                      children,
                      onCancel,
                      onConfirm,
+
                  }) => {
     return (
-        <div className={`md-modal ${visible ? 'md-show' : 'md-hidden'}`} tabIndex="-1">
-            <div className="modal-dialog">
+        <div className={`md-modal ${visible ? 'md-show' : 'md-hidden'}`} tabIndex="-1" onClick={onCancel}>
+            <div className="modal-dialog" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title">{title}</h5>

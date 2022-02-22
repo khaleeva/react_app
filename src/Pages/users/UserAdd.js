@@ -28,7 +28,7 @@ const UserAdd = ({users, setUsers, onCancel}) => {
     })
 
     return (
-        <>
+        <form className={'user-form'}>
             {Object.keys(values).map((value, index) => {
                 if (value === 'age') {
                     return <input
@@ -52,7 +52,7 @@ const UserAdd = ({users, setUsers, onCancel}) => {
             })
             }
             <MyButton className={"adduserBtn"} action={addNewUser} >Add new user</MyButton>
-        </>
+        </form>
     );
 };
 

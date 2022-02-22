@@ -2,7 +2,7 @@ import React from 'react';
 import MyButton from "../../components/MyButton/MyButton";
 
 
-const UserList = ({users, deleteUser}) => {
+const UserList = ({deleteUser, sortedAndSearchedUsers}) => {
 
     return (
         <table className="table table-info">
@@ -16,18 +16,25 @@ const UserList = ({users, deleteUser}) => {
             </tr>
             </thead>
             <tbody>
-            {users.map ((user, index) =>
+            {sortedAndSearchedUsers.length
+                ? sortedAndSearchedUsers.map ((user, index) =>
             <tr key={index}>
                 <th scope="row" >{index + 1}</th>
                 <td>{user.name}</td>
                 <td>{user.age}</td>
                 <td>{user.country}</td>
-                <td><MyButton action={() => deleteUser(user.id)}>delete</MyButton></td>
+                <td><MyButton action={() => deleteUser(user)}>delete</MyButton></td>
             </tr>
-                )}
+                )
+                :
+                <h3 className="mt-4">User not found</h3>
+            }
             </tbody>
         </table>
     )
 };
 
 export default UserList;
+
+
+

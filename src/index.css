@@ -27,8 +27,12 @@ span{
   padding-right: 0.5rem;
 }
 
-.user_input{
-  margin-right: 1rem;
+
+.user-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 1rem;
 }
 
 .card{
