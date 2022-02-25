@@ -3,11 +3,8 @@ import UserList from "./UserList";
 import UserAdd from "./UserAdd";
 import MyModal from "../../components/MyModal/MyModal";
 import UserSortAndSearch from "./UserSortAndSearch";
+import MyButton from "../../components/MyButton/MyButton";
 
-
-// function Mybutton(props) {
-//     return null;
-// }
 
 const Users = () => {
 
@@ -61,7 +58,7 @@ const Users = () => {
         setConfirmModal(true)
     }
 
-    const deleteUser = (id) => {
+    const deleteUser = () => {
         setUsers(users.filter((user) => user.id !== currentUser.id))
         setConfirmModal(false)
     }
@@ -70,11 +67,10 @@ const Users = () => {
         <div className='container'>
             <UserSortAndSearch setSorter={setSorter} setSearchQuery={setSearchQuery}/>
             <UserList users={users} deleteUser={confirmDeleteUser} sortedAndSearchedUsers={sortedAndSearchedUsers}/>
-            <button
-                className="btn btn-secondary"
-                onClick={() => setShowModal(true)}
+            <MyButton
+                action={() => setShowModal(true)}
             >Add User
-            </button>
+            </MyButton>
             <MyModal visible={showModal}
                      onCancel={()=>{onCancel()}}
                      closeButtonShow>

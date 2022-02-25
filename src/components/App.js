@@ -14,15 +14,6 @@ const App = () =>{
 
   return (
     <div className="App">
-        {/*<MyButton action={changeText}>{buttonText}</MyButton>*/}
-        {/*<ToggleButton*/}
-        {/*    toggle={toggle}*/}
-        {/*    setToggle={setToggle}*/}
-        {/*>{toggle ? "One" : "Two"}</ToggleButton>*/}
-
-        {/*<Counter/>*/}
-        {/*<MyClassButton/>*/}
-
         <BrowserRouter>
             <NavBar/>
             <AppRouter/>
