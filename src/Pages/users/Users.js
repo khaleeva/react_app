@@ -1,48 +1,48 @@
-import React, {useMemo, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
 import UserList from "./UserList";
 import UserAdd from "./UserAdd";
 import MyModal from "../../components/MyModal/MyModal";
 import UserSortAndSearch from "./UserSortAndSearch";
 import MyButton from "../../components/MyButton/MyButton";
+import Crud from "../../services/crud.service";
+import AuthContext from "../../context/context";
+import {setAllUsers} from "../../reducer/reducer";
 
 
 const Users = () => {
 
+    const userCrud = new Crud('users');
+    const [loading, setLoading] = useState(false);
     const [sorter, setSorter] = useState(0);
     const [searchQuery, setSearchQuery] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
-    const [users, setUsers] = useState([
-        {
-            id:1,
-            name: 'Franko',
-            age: 32,
-            country: "USA"
-        },
-        {
-            id:2,
-            name: 'Mikolo',
-            age: 43,
-            country: "Italy"
-        },
-        {
-            id:3,
-            name: 'Petro',
-            age: 20,
-            country: "Russia"
-        },
+    const [users, setUsers] = useState([]);
+    const {state, dispatch} = useContext(AuthContext)
 
-    ]);
+    useEffect(() => {
+
+        fetchAllUsers();
+
+    }, [])
+
+    const fetchAllUsers = () => {
+        setLoading(true);
+        userCrud.getAll().then((res) => {
+            dispatch(setAllUsers(res.data));
+            setLoading(loading);
+        })
+    }
 
     const sortedUsers = useMemo(() => {
         if (sorter === 2) {
-            return [...users].sort((a, b) => b.age - a.age)
+            return [...state.users].sort((a, b) => b.id - a.id)
         } else if(sorter === 1){
-            return [...users].sort((a, b) => a.age - b.age)
-        } return [...users]
+            return [...state.users].sort((a, b) => a.id - b.id)
+        } return [...state.users]
 
-    }, [sorter, users])
+    }, [sorter, state.users])
 
 
     const sortedAndSearchedUsers = useMemo(() => {
@@ -66,7 +66,7 @@ const Users = () => {
     return (
         <div className='container'>
             <UserSortAndSearch setSorter={setSorter} setSearchQuery={setSearchQuery}/>
-            <UserList users={users} deleteUser={confirmDeleteUser} sortedAndSearchedUsers={sortedAndSearchedUsers}/>
+            {state.users.length && <UserList users={state.users} deleteUser={confirmDeleteUser} sortedAndSearchedUsers={sortedAndSearchedUsers}/>}
             <MyButton
                 action={() => setShowModal(true)}
             >Add User
@@ -74,7 +74,7 @@ const Users = () => {
             <MyModal visible={showModal}
                      onCancel={()=>{onCancel()}}
                      closeButtonShow>
-                <UserAdd users = {users} setUsers = {setUsers} onCancel={()=>onCancel()}/>
+                <UserAdd users = {state.users} setUsers = {dispatch} onCancel={()=>onCancel()}/>
             </MyModal>
             <MyModal
                 visible={confirmModal}

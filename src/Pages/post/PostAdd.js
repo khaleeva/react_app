@@ -19,15 +19,11 @@ const PostAdd = ({usersPosts, setUsersPosts, onCancel}) => {
             setUsersPosts([...usersPosts, values])
         })
         setValues({
-            // id: '',
             title: '',
             body: '',
         })
         onCancel();
     }
-
-    let countId = usersPosts.length; // для id
-
 
     const [values, setValues] = useState({
         title: '',

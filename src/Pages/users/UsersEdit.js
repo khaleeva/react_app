@@ -21,11 +21,40 @@ const UsersEdit = () => {
 
     // console.log(user)
 
+    const onChange = (e) =>{
+
+        const field = e.target.id;
+        setUser({...user, [field]:e.target.value})
+    }
+
+    const saveUser = (e) =>{
+        e.preventDefault();
+        userCrud.update(user.id, user).then((res) =>
+            setUser(res.data)
+        )
+    }
+
 
     return (
-        <div>
-            ghfhffjfkuhlihlj
-        </div>
+        <form className="container-md col-4 my-5" onSubmit={saveUser}>
+            {user && Object.keys(user).map((field, id) => {
+                if(field === "id" || field === "company" || field === "address") return;
+
+                return (
+                    <div className="mb-3" key={id}>
+                <label htmlFor={field} className="form-label">{field}</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    required
+                    value={user[field]}
+                    id={field}
+                    onChange={onChange}
+                />
+
+            </div> )})}
+            <button className="btn btn-primary" >Save</button>
+        </form>
     );
 };
 

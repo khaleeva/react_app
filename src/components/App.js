@@ -3,22 +3,33 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import NavBar from "./NavBar";
 import AppRouter from "./AppRouter";
 import {BrowserRouter} from "react-router-dom";
-
+import AuthContext from "../context/context";
+import {useReducer} from "react";
+import {reducer} from "../reducer/reducer";
 
 const App = () =>{
-    // const [buttonText, setButtonText] = useState('Click me please!')
-    // const [toggle, setToggle] = useState(true);
-    //  const changeText = () =>{
-    //      setButtonText("new text")
-    //  }
+
+    const auth = window.localStorage.getItem("token");
+
+   const [state, dispatch] = useReducer(reducer, {auth:auth, name:'', users:[]});
+    // const [auth, setAuth] = useState(false)
 
   return (
-    <div className="App">
-        <BrowserRouter>
-            <NavBar/>
-            <AppRouter/>
-        </BrowserRouter>
-    </div>
+      <AuthContext.Provider value ={{
+          // auth,
+          // setAuth
+
+          state,
+          dispatch
+      }}>
+          <div className="App">
+              <BrowserRouter>
+                  <NavBar/>
+                  <AppRouter/>
+              </BrowserRouter>
+          </div>
+      </AuthContext.Provider>
+
   );
 }
 

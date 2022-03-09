@@ -2,17 +2,18 @@ import React from 'react';
 import MyButton from "../../components/MyButton/MyButton";
 import {Link} from "react-router-dom";
 
-
-const UserList = ({deleteUser, sortedAndSearchedUsers}) => {
-
+const UserList = ({deleteUser, sortedAndSearchedUsers, users}) => {
+    console.log(sortedAndSearchedUsers)
     return (
         <table className="table table-info">
             <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
-                <th scope="col">Age</th>
-                <th scope="col">Country</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Website</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -22,8 +23,10 @@ const UserList = ({deleteUser, sortedAndSearchedUsers}) => {
             <tr key={id}>
                 <th scope="row" ><Link to={`/users/${user.id}`}>{user.id}</Link></th>
                 <td>{user.name}</td>
-                <td>{user.age}</td>
-                <td>{user.country}</td>
+                <td>{user.username}</td>
+                <td>{user.email}</td>
+                <td>{user.phone}</td>
+                <td>{user.website}</td>
                 <td><MyButton action={() => deleteUser(user)}>delete</MyButton></td>
             </tr>
                 )

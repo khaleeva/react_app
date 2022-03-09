@@ -1,15 +1,19 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MyModal from "../../components/MyModal/MyModal";
 import Crud from "../../services/crud.service";
 import PostAdd from "./PostAdd";
 import MyButton from "../../components/MyButton/MyButton";
 import Spinner from "../../components/Spinner";
+import {useSortedAndSearchedPosts} from "../../hooks/usePost";
+import PostEdit from "./PostEdit";
+
 
 const Posts = () => {
 
     const postsCrud = new Crud('posts');
     const [showModal, setShowModal] = useState(false);
     const [showPostModal, setShowPostModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
     const [currentPost, setCurrentPost] = useState(null);
     const [sorter, setSorter] = useState(0);
     const [searchQuery, setSearchQuery] = useState('');
@@ -25,24 +29,26 @@ const Posts = () => {
      const fetchAllPosts = () => {
         setLoading(true);
         postsCrud.get('?_page=1&_limit=15').then((res) => {
-            setUsersPosts(res.data);
+           setUsersPosts(res.data);
             setLoading(loading);
         })
     }
+
+
 
     const confirmDeletePost = (post) =>{
         setCurrentPost(post);
         setShowModal(true)
     }
 
-    const editPost = (post) => {
-        postsCrud.update(post.id).then((res) => {
-        })
+    const editShowPost = () => {
+        setShowEditModal(true)
     }
 
     const onCancel = () =>{
         setShowModal(false)
         setShowPostModal(false)
+        setShowEditModal(false)
     }
 
     const deletePost = () => {
@@ -61,16 +67,8 @@ const Posts = () => {
         setSorter(+e.target.value)
     }
 
-    const sortedPosts = useMemo(() => {
-        if (sorter) {
-            return [...usersPosts].sort((a, b) => b.id - a.id)
-        }
-        return usersPosts
-    }, [sorter, usersPosts])
+ const sortedAndSearchedPosts = useSortedAndSearchedPosts(usersPosts, sorter, searchQuery);
 
-    const sortedAndSearchedPosts = useMemo(() => {
-        return sortedPosts.filter((post) => post.title.toLowerCase().includes(searchQuery.toLowerCase()))
-    }, [searchQuery, sortedPosts])
 
     return (
         <div className="container">
@@ -107,7 +105,7 @@ const Posts = () => {
                                 <h5 className="card-title">{post.id}. {post.title}</h5>
                                 <p className="card-text">{post.body}</p>
                                 <button onClick={() => confirmDeletePost(post)} className="btn btn-primary">Delete</button>
-                                <button  onClick={() => editPost(post)} className="btn btn-primary m-4">Edit</button>
+                                <button  onClick={editShowPost} className="btn btn-primary m-4">Edit</button>
                             </div>
                         </div>
                     </div>
@@ -133,6 +131,11 @@ const Posts = () => {
                          setUsersPosts = {setUsersPosts}
                          onCancel={onCancel}
                          />
+            </MyModal>
+            <MyModal visible={showEditModal}
+                     onCancel={onCancel}
+                     closeButtonShow>
+                <PostEdit currentPost={usersPosts}/>
             </MyModal>
         </div>
     );
